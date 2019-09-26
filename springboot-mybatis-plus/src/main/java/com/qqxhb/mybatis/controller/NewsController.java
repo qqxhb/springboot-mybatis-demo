@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qqxhb.mybatis.entity.News;
-import com.qqxhb.mybatis.service.impl.NewsServiceImpl;
+import com.qqxhb.mybatis.mapper.NewsMapper;
+import com.qqxhb.mybatis.service.INewsService;
 
 /**
  * <p>
@@ -24,7 +25,7 @@ import com.qqxhb.mybatis.service.impl.NewsServiceImpl;
 @RequestMapping("/news")
 public class NewsController {
 	@Autowired
-	NewsServiceImpl newsServiceImpl;
+	INewsService newsService;
 
 	/**
 	 * 添加新闻
@@ -35,7 +36,7 @@ public class NewsController {
 	 */
 	@PostMapping
 	public String addNews(@RequestParam(value = "title", required = true) String title, String summary) {
-		return newsServiceImpl.insertNews(title, summary) ? "添加成功！" : "添加失败！";
+		return newsService.insertNews(title, summary) ? "添加成功！" : "添加失败！";
 	}
 
 	/**
@@ -46,6 +47,20 @@ public class NewsController {
 	 */
 	@GetMapping
 	public List<News> getNews(String title, int pageIndex, int pageSize) {
-		return newsServiceImpl.selectNews(title, pageIndex, pageSize);
+		return newsService.selectNews(title, pageIndex, pageSize);
+	}
+
+	@Autowired
+	NewsMapper map;
+
+	@GetMapping("test")
+	public void getNews() {
+		try {
+			System.out.println(map.hashCode());
+			;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 }

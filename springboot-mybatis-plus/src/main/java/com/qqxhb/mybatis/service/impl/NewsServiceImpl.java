@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qqxhb.mybatis.entity.News;
+import com.qqxhb.mybatis.exception.ExceptionCast;
 import com.qqxhb.mybatis.mapper.NewsMapper;
 import com.qqxhb.mybatis.service.INewsService;
 
@@ -57,4 +58,10 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements IN
 		IPage<News> page = page(new Page<News>(pageIndex, pageSize), queryWrapper);
 		return page.getRecords();
 	}
+
+	public List<News> test() {
+		ExceptionCast.cast();
+		return null;
+	}
+
 }
